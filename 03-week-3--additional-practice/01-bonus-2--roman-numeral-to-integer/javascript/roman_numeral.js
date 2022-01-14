@@ -9,19 +9,27 @@ function romanNumeral(string) {
       'D': 500,
       'M': 1000
   };
-
+  // check if string is more than one symbol
   if (string.length > 1) {
-      let integer = romanNumObj[string[string.length - 1]];
+      // assign the last symbol's value to a counter variable
+      let counter = romanNumObj[string[string.length - 1]];
+      // loop over the roman numeral from last symbol to first (so in reverse/right to left)
       for (let i = string.length - 1; i > 0; i--) {
-          const curr = romanNumObj[string[i]];
-          const prev = romanNumObj[string[i - 1]];
-          if (prev < curr) {
-              integer = integer - prev;
+          // assign right symbol's integer value to right variable
+          const right = romanNumObj[string[i]];
+          // assign left symbol's integer value to left variable
+          const left = romanNumObj[string[i - 1]];
+          // compare symbols, in groups of 2 at a time
+          // if left is less than right
+          if (left < right) {
+              // subtract left from counter
+              counter -= left;
           } else {
-              integer = integer + prev;
+              // else, if left is greater than or equal to right, add left to counter
+              counter += left;
           }
       }
-      return integer;
+      return counter;
   } else {
       return romanNumObj[string];
   }
